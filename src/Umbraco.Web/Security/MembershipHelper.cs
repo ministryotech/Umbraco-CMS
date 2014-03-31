@@ -33,7 +33,7 @@ namespace Umbraco.Web.Security
             _httpContext = httpContext;
         }
 
-        public MembershipHelper(UmbracoContext umbracoContext)
+        public MembershipHelper(IUmbracoContext umbracoContext)
         {
             if (umbracoContext == null) throw new ArgumentNullException("umbracoContext");
             _httpContext = umbracoContext.HttpContext;

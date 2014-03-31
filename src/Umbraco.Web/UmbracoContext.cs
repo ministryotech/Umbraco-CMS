@@ -17,7 +17,7 @@ namespace Umbraco.Web
     /// <summary>
     /// Class that encapsulates Umbraco information of a specific HTTP request
     /// </summary>
-    public class UmbracoContext : DisposableObject, IDisposeOnRequestEnd
+    public class UmbracoContext : DisposableObject, IUmbracoContext
     {
         private const string HttpContextItemName = "Umbraco.Web.UmbracoContext";
         private static readonly object Locker = new object();
@@ -340,13 +340,13 @@ namespace Umbraco.Web
 	    /// <summary>
 	    /// Gets the uri that is handled by ASP.NET after server-side rewriting took place.
 	    /// </summary>
-		internal Uri OriginalRequestUrl { get; private set; }
+		public Uri OriginalRequestUrl { get; private set; }
 
 		/// <summary>
 		/// Gets the cleaned up url that is handled by Umbraco.
 		/// </summary>
 		/// <remarks>That is, lowercase, no trailing slash after path, no .aspx...</remarks>
-		internal Uri CleanedUmbracoUrl { get; private set; }
+		public Uri CleanedUmbracoUrl { get; private set; }
 
         /// <summary>
         /// Gets or sets the published content cache.
@@ -378,7 +378,7 @@ namespace Umbraco.Web
 		/// <remarks>
 		/// If the RoutingContext is null, this will throw an exception.
 		/// </remarks>
-    	internal UrlProvider UrlProvider
+    	public UrlProvider UrlProvider
     	{
     		get
     		{
@@ -391,7 +391,7 @@ namespace Umbraco.Web
 		/// <summary>
 		/// Gets/sets the RoutingContext object
 		/// </summary>
-		internal RoutingContext RoutingContext { get; set; }	
+		public RoutingContext RoutingContext { get; set; }	
 
 		/// <summary>
 		/// Gets/sets the PublishedContentRequest object

@@ -22,13 +22,13 @@ namespace Umbraco.Web.Templates
 	/// </remarks>
 	internal class TemplateRenderer
 	{
-		private readonly UmbracoContext _umbracoContext;
+		private readonly IUmbracoContext _umbracoContext;
 		private object _oldPageId;
 		private object _oldPageElements;
 		private PublishedContentRequest _oldPublishedContentRequest;
 		private object _oldAltTemplate;
 
-		public TemplateRenderer(UmbracoContext umbracoContext, int pageId, int? altTemplateId)
+		public TemplateRenderer(IUmbracoContext umbracoContext, int pageId, int? altTemplateId)
 		{
 			if (umbracoContext == null) throw new ArgumentNullException("umbracoContext");
 			PageId = pageId;

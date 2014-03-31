@@ -14,6 +14,7 @@ using Umbraco.Web.Models;
 using Umbraco.Web.Routing;
 using umbraco.cms.businesslogic.template;
 using System.Collections.Generic;
+using UWeb = Umbraco.Web;
 
 namespace Umbraco.Web.Mvc
 {
@@ -38,7 +39,7 @@ namespace Umbraco.Web.Mvc
         /// </summary>
         /// <param name="controllerFactory"></param>
         /// <param name="umbracoContext"></param>
-        internal RenderRouteHandler(IControllerFactory controllerFactory, UmbracoContext umbracoContext)
+        internal RenderRouteHandler(IControllerFactory controllerFactory, IUmbracoContext umbracoContext)
         {
             if (controllerFactory == null) throw new ArgumentNullException("controllerFactory");
             if (umbracoContext == null) throw new ArgumentNullException("umbracoContext");
@@ -47,14 +48,14 @@ namespace Umbraco.Web.Mvc
         }
 
         private readonly IControllerFactory _controllerFactory;
-        private readonly UmbracoContext _umbracoContext;
+        private readonly IUmbracoContext _umbracoContext;
 
         /// <summary>
         /// Returns the current UmbracoContext
         /// </summary>
-        public UmbracoContext UmbracoContext
+        public IUmbracoContext UmbracoContext
         {
-            get { return _umbracoContext ?? UmbracoContext.Current; }
+            get { return _umbracoContext ?? UWeb.UmbracoContext.Current; }
         }
 
         #region IRouteHandler Members

@@ -24,6 +24,7 @@ using umbraco.cms.businesslogic.member;
 using umbraco.cms.businesslogic.web;
 using umbraco.presentation.templateControls;
 using Member = umbraco.cms.businesslogic.member.Member;
+using UWeb = Umbraco.Web;
 
 namespace Umbraco.Web
 {
@@ -32,7 +33,7 @@ namespace Umbraco.Web
 	/// </summary>
 	public class UmbracoHelper
 	{
-		private readonly UmbracoContext _umbracoContext;
+		private readonly IUmbracoContext _umbracoContext;
 		private readonly IPublishedContent _currentPage;
 	    private PublishedContentQuery _query;
         private readonly MembershipHelper _membershipHelper;
@@ -57,7 +58,7 @@ namespace Umbraco.Web
         /// <summary>
         /// Helper method to ensure an umbraco context is set when it is needed
         /// </summary>
-        private UmbracoContext UmbracoContext
+        private IUmbracoContext UmbracoContext
         {
             get
             {
@@ -91,7 +92,7 @@ namespace Umbraco.Web
 		/// </summary>
 		/// <param name="umbracoContext"></param>
 		/// <param name="content"></param>
-		public UmbracoHelper(UmbracoContext umbracoContext, IPublishedContent content)
+		public UmbracoHelper(IUmbracoContext umbracoContext, IPublishedContent content)
 			: this(umbracoContext)
 		{			
 			if (content == null) throw new ArgumentNullException("content");
@@ -103,7 +104,7 @@ namespace Umbraco.Web
 		/// Standard constructor setting the current page to the page that has been routed to
 		/// </summary>
 		/// <param name="umbracoContext"></param>
-		public UmbracoHelper(UmbracoContext umbracoContext)
+		public UmbracoHelper(IUmbracoContext umbracoContext)
 		{
 			if (umbracoContext == null) throw new ArgumentNullException("umbracoContext");
 			if (umbracoContext.RoutingContext == null) throw new NullReferenceException("The RoutingContext on the UmbracoContext cannot be null");
@@ -542,7 +543,7 @@ namespace Umbraco.Web
         /// <returns>The url for the content.</returns>
         public string Url(int contentId)
         {
-            return UmbracoContext.Current.UrlProvider.GetUrl(contentId);
+            return UWeb.UmbracoContext.Current.UrlProvider.GetUrl(contentId);
         }
 
         /// <summary>
@@ -553,7 +554,7 @@ namespace Umbraco.Web
         /// <returns>The url for the content.</returns>
 	    public string Url(int contentId, UrlProviderMode mode)
 	    {
-	        return UmbracoContext.Current.UrlProvider.GetUrl(contentId, mode);
+            return UWeb.UmbracoContext.Current.UrlProvider.GetUrl(contentId, mode);
 	    }
 
 		/// <summary>
@@ -573,7 +574,7 @@ namespace Umbraco.Web
         /// <returns>The absolute url for the content.</returns>
         public string UrlAbsolute(int contentId)
         {
-            return UmbracoContext.Current.UrlProvider.GetUrl(contentId, true);
+            return UWeb.UmbracoContext.Current.UrlProvider.GetUrl(contentId, true);
         }
 
 		#endregion

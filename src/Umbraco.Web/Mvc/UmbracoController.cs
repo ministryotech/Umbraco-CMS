@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Umbraco.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web.Security;
+using UWeb = Umbraco.Web;
 
 namespace Umbraco.Web.Mvc
 {
@@ -11,14 +12,14 @@ namespace Umbraco.Web.Mvc
     /// </summary>
     public abstract class UmbracoController : Controller
     {
-        protected UmbracoController(UmbracoContext umbracoContext)
+        protected UmbracoController(IUmbracoContext umbracoContext)
         {
             if (umbracoContext == null) throw new ArgumentNullException("umbracoContext");
             UmbracoContext = umbracoContext;
         }
 
         protected UmbracoController()
-            : this(UmbracoContext.Current)
+            : this(UWeb.UmbracoContext.Current)
         {
             
         }
@@ -35,7 +36,7 @@ namespace Umbraco.Web.Mvc
         /// <summary>
         /// Returns the current UmbracoContext
         /// </summary>
-        protected UmbracoContext UmbracoContext { get; private set; }
+        protected IUmbracoContext UmbracoContext { get; private set; }
 
         /// <summary>
         /// Returns the current ApplicationContext
